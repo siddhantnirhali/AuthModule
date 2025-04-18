@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AuthModule"
 include(":app")
- 
+include(":userauth")
