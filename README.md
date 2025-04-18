@@ -38,17 +38,17 @@ git clone https://github.com/siddhantnirhali/AuthModule.git
 ---
 
 ## 2. Integrate the UserAuth Module into Your Project
-
- **1. Include module in settings.gradle.kts:**
+ - **Import only userauth folder as module in your project**
+ - **1. Include module in settings.gradle.kts:**
         include(":userauth")
- **2. Add dependency in your app’s build.gradle.kts:**
+ - **2. Add dependency in your app’s build.gradle.kts:**
         implementation(project(":userauth"))
- **3. Set namespace in your app’s build.gradle.kts:**
-        android {
+ - **3. Set namespace in your app’s build.gradle.kts:**
+ -       android {
             namespace = "com.example.userauth"
             // …
         }
- **4. Add Firebase Web Client ID to local.properties:**
+ - **4. Add Firebase Web Client ID to local.properties:**
         WEB_CLIENT_ID="your_firebase_web_client_id"
  
 Now the module is ready to use!
