@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.example.auth.presentation.components.LoadingScreen
 import com.example.auth.presentation.components.MyTextField
 import com.example.auth.presentation.responsive.WindowType
+import com.example.auth.presentation.viewmodel.LoginFormState
 import com.example.auth.presentation.viewmodel.LoginViewModel
 
 @Composable
@@ -51,28 +52,24 @@ fun ForgetPasswordScreen(windowType: WindowType, viewModel: LoginViewModel) {
 
         }
     }
-    ForgetPasswordScreenUI(windowType
-            ,isLoading = uiState.isLoading,
-        isEmailverified = uiState.isEmailVerified,
+    ForgetPasswordScreenUI(windowType,
+        loginFormState = loginFormState,
+        isLoading = uiState.isLoading,
+        isEmailVerified = uiState.isEmailVerified,
         onEmailUpdate = { email -> viewModel.setEmail(email) },
-        onPasswordUpdate = { password -> viewModel.setPassword(password) },
-        onConfirmPasswordUpdate = {},
         onSignupPressed = { viewModel.onSignupPressed() },
-        onVerifyEmailPressed = { viewModel.verifyEmail() },
-        onChangePasswordPressed = { viewModel.forgetPasswordRequest() })
+        onVerifyEmailPressed = { viewModel.verifyEmail() })
 }
 
 @Composable
 fun ForgetPasswordScreenUI(
     windowType: WindowType,
+    loginFormState: LoginFormState,
     isLoading: Boolean,
-    isEmailverified: Boolean,
+    isEmailVerified: Boolean,
     onEmailUpdate: (String) -> Unit,
-    onPasswordUpdate: (String) -> Unit,
-    onConfirmPasswordUpdate: (String) -> Unit,
     onSignupPressed: () -> Unit,
     onVerifyEmailPressed: () -> Unit,
-    onChangePasswordPressed: () -> Unit
 ) {
 
     var containerSize by remember { mutableStateOf(IntSize.Zero) }
@@ -130,7 +127,7 @@ fun ForgetPasswordScreenUI(
                             modifier = Modifier.clickable { onSignupPressed() })
                     }
                 }
-                if (isEmailverified) {
+                if (isEmailVerified) {
 
                     Column(
                         modifier = Modifier.fillMaxWidth(),
@@ -141,7 +138,14 @@ fun ForgetPasswordScreenUI(
                     }
                 } else {
                     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        MyTextField("Email", "Email", "", onValueChanged = { onEmailUpdate(it) }, true, "")
+                        MyTextField(
+                            "Email",
+                            "Email",
+                            loginFormState.email,
+                            onValueChanged = { onEmailUpdate(it) },
+                            true,
+                            ""
+                        )
                     }
                     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
                         Button(modifier = Modifier.fillMaxWidth(),
@@ -160,14 +164,15 @@ fun ForgetPasswordScreenUI(
 @Preview
 @Composable
 fun ForgetPasswordScreenPreview() {
-    ForgetPasswordScreenUI(windowType = WindowType.Medium,false,
-        false,
+    ForgetPasswordScreenUI(
+        windowType = WindowType.Medium,
+        LoginFormState(),
+        isLoading = false,
+        isEmailVerified = false,
         onEmailUpdate = {},
-        onPasswordUpdate = {},
-        onConfirmPasswordUpdate = {},
         onSignupPressed = {},
         onVerifyEmailPressed = {},
-        onChangePasswordPressed = {})
+    )
 }
 
 

@@ -133,10 +133,12 @@ class LoginViewModel(private val context: Context,
 
 
     fun onSignupPressed() {
+        _loginState.value = LoginFormState()
         navigationProvider.navigateTo(Routes.Register.route)
     }
 
     fun forgetPasswordRequest() {
+        _loginState.value = LoginFormState()
         navigationProvider.navigateTo(Routes.ForgetPassword.route)
     }
 
@@ -160,6 +162,7 @@ class LoginViewModel(private val context: Context,
     }
 
     fun onLoginSuccess(){
+        _loginState.value = LoginFormState()
         navigationProvider.goBack()
         navigationProvider.navigateTo(Routes.Home.route)
     }

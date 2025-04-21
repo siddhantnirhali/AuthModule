@@ -309,14 +309,17 @@ class RegistrationScreenViewModel(
 
 
     fun onRegisterSuccess() {
+        _registrationState.value = RegistrationFormState()
         navigationProvider.navigateTo(Routes.Login.route)
     }
 
     fun onLoginSuccess() {
+        _registrationState.value = RegistrationFormState()
         navigationProvider.navigateTo(Routes.Home.route)
     }
 
     fun onLoginPressed() {
+        _registrationState.value = RegistrationFormState()
         navigationProvider.navigateTo(Routes.Login.route)
     }
 }
